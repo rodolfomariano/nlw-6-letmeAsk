@@ -10,6 +10,7 @@
   display: flex;
 
   div {
+    height: 100%;
     background-color: #835AFD;
     padding: 0 12px;
     display: flex;
@@ -18,13 +19,14 @@
   }
 
   span {
-    width: 240px;
+    display: block;
+    align-self: center;
     flex: 1;
+
+    // width: 240px;
     padding: 0 16px 0 12px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
 
-    display: flex;
-    align-self: center;
   }
 }

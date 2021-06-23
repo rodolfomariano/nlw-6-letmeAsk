@@ -65,6 +65,24 @@
         align-items: center;
         margin-top: 16px;
 
+        .user__info {
+          display: flex;
+          align-items: center;
+
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+          }
+
+          span {
+            margin-left: 10px;
+            color: #29292E;
+            font-weight: 500;
+            font-size: 14px;
+          }
+        }
+
         .footer__span {
           flex: none;
           // display: flex;
