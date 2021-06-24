@@ -57,8 +57,8 @@ export function Home() {
           <img src={logoImage} alt="Logo da aplicação" />
           <button className={styles.create__rom} onClick={handleCreateRoom}>
             <img src={googleIconImage} alt="Logo do google" />
-              Crie sua sala com o google
-            </button>
+            Crie sua sala com o google
+          </button>
           <div className={styles.main__separator}>Ou entre em uma sala</div>
           <form onSubmit={handleJoinRoom}>
             <input

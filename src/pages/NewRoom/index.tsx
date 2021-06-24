@@ -28,7 +28,7 @@ export function NewRoom() {
       authorId: user?.id,
     })
 
-    history.push(`/rooms/${firebaseRoom.key}`)
+    history.push(`/admin/rooms/${firebaseRoom.key}`)
   }
 
   return (
@@ -54,7 +54,7 @@ export function NewRoom() {
             </Button>
           </form>
           <p>
-            Quer entrar em ua sala já existente? <Link to="/">clique aqui</Link>
+            Quer entrar em uma sala já existente? <Link to="/">clique aqui</Link>
           </p>
         </div>
       </main>

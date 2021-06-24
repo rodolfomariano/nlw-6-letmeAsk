@@ -1,5 +1,5 @@
 .page__container {
-  header {
+  .page__header {
     padding: 20px;
     border-bottom: 1px solid #E2E2E2;
 
@@ -66,6 +66,73 @@
         
         &:hover {
           filter: brightness(0.5);
+        }
+      }
+    }
+  }
+
+  .modal__container {
+    background-color: #F8F8F8;
+    padding: 0 40px;
+    border-radius: 8px;
+
+    .modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      padding: 20px 0;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+
+      .modal__title {
+        font-family: 'Nunito', sans-serif;
+        color: #494952;
+        font-size: 24px;
+      }
+    }
+
+    .modal__content {
+      padding: 50px 0;
+      border-top: 1px solid #dbdada;
+      border-bottom: 1px solid #dbdada;
+      font-size: 14px;
+      color: #737380;
+    }
+    
+    .modal__footer {
+      width: 100%;
+      padding: 30px 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      button {
+        padding: 8px 24px;
+        border-radius: 8px;
+        border: 0;
+        font-weight: 500;
+        font-size: 16px;
+        font-family: 'Nunito', sans-serif;
+        cursor: pointer;
+        color: #FFFFFF;
+        transition: filter 200ms;
+
+        &.confirm {
+          background-color: #1D9951;
+        }
+
+        &.cancel {
+          background-color: #F29F05;
+        }
+
+        &:hover {
+          filter: brightness(0.9);
         }
       }
     }

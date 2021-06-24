@@ -9,6 +9,11 @@ import { database } from '../../services/firebase'
 
 import styles from './styles.module.scss'
 import deleteImg from '../../assets/images/delete.svg'
+import { Modal } from '../../components/Modal'
+import { useState } from 'react'
+
+import { BiTrashAlt } from 'react-icons/bi'
+import { IoIosCloseCircleOutline } from "react-icons/io"
 
 type RoomParams = {
   id: string
@@ -21,31 +26,37 @@ export function AdminRoom() {
   const roomId = params.id
   const { questions, title } = useRoom(roomId)
 
-  async function handleEndRoom() {
-    if (window.confirm('Tem certeza que deseja encerrar essa sala?')) {
-      await database.ref(`rooms/${roomId}`).update({
-        endedAt: new Date(),
-      })
+  const [openModal, setOpenModal] = useState(false)
+  const [removeQuestionId, setRemoveQuestionId] = useState('')
 
-      history.push('/')
-    }
+  async function handleEndRoom() {
+    await database.ref(`rooms/${roomId}`).update({
+      endedAt: new Date(),
+    })
+
+    history.push('/')
 
   }
 
-  async function handleDeleteQuestion(questionId: string) {
-    if (window.confirm('Tem certeza que deseja excluir essa pergunta?')) {
-      await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
-    }
+  function handleOpenModal(questionId: string) {
+    setOpenModal(!openModal)
+    setRemoveQuestionId(questionId)
+  }
+
+  async function handleDeleteQuestion() {
+    setOpenModal(!openModal)
+    await database.ref(`rooms/${roomId}/questions/${removeQuestionId}`).remove()
+    setRemoveQuestionId('')
   }
 
   return (
     <div className={styles.page__container}>
-      <header>
+      <header className={styles.page__header}>
         <div className={styles.room__header__content}>
           <img src={logoImage} alt="Logo letMeAsk" />
           <div className={styles.room__header__action}>
             <RoomCode code={roomId} />
-            <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
+            <Button isOutlined onClick={() => setOpenModal(!openModal)}>Encerrar sala</Button>
           </div>
         </div>
       </header>
@@ -64,7 +75,7 @@ export function AdminRoom() {
               <Question key={question.id} content={question.content} author={{ name, avatar }} >
                 <button
                   type="button"
-                  onClick={() => handleDeleteQuestion(question.id)}
+                  onClick={() => handleOpenModal(question.id)}
                 >
                   <img src={deleteImg} alt="Icone de deletar" />
                 </button>
@@ -74,6 +85,54 @@ export function AdminRoom() {
         </div>
 
       </main>
+
+      {openModal === true ? (
+        <Modal
+          isOpen={openModal}
+          onClose={() => {
+            setOpenModal(!openModal)
+            setRemoveQuestionId('')
+          }}
+        >
+          <div className={styles.modal__container}>
+            <header className={styles.modal__header}>
+              {removeQuestionId === ''
+                ? <IoIosCloseCircleOutline size={40} color={'#F29F05'} />
+                : <BiTrashAlt size={40} color={'#F29F05'} />}
+
+              <h1 className={styles.modal__title}>
+                {removeQuestionId === '' ? 'Encerrar sala' : 'Excluir pergunta'}
+              </h1>
+            </header>
+            <main className={styles.modal__content}>
+              <p className={styles.modal__detail}>
+                {removeQuestionId === '' ? 'Tem certeza que deseja encerrar essa sala?' : 'Tem certeza que deseja escluir essa pergunta?'}
+              </p>
+            </main>
+            <footer className={styles.modal__footer}>
+              <button
+                className={styles.confirm}
+                type="button"
+                onClick={removeQuestionId === '' ? handleEndRoom : handleDeleteQuestion}
+              >
+                Confirmar
+              </button>
+
+              <button
+                className={styles.cancel}
+                type="button"
+                onClick={() => {
+                  setOpenModal(!openModal)
+                  setRemoveQuestionId('')
+                }}
+              >
+                Cancelar
+              </button>
+            </footer>
+          </div>
+        </Modal>
+      ) : null}
+
     </div>
   )
 }

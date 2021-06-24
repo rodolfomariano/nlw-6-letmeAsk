@@ -4,6 +4,7 @@ import { AuthContextProvider } from './contexts/AuthContext';
 
 import Routes from './routes';
 
+import { ToastContainer } from 'react-toastify'
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
     <BrowserRouter>
       <AuthContextProvider>
         <Routes />
+        <ToastContainer />
       </AuthContextProvider>
     </BrowserRouter>
   );
