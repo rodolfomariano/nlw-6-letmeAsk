@@ -89,4 +89,11 @@
       color: #E559F9;
     }
   }
+
+  @media screen and (max-width: 720px) {
+    aside {
+      display: none;
+    }
+  }
+  
 }

@@ -138,4 +138,17 @@
       }
     }
   }
+
+  @media screen and (max-width: 720px) {
+
+    form {
+      margin: 0 16px;
+    }
+    
+    .question__list {
+      margin: 0 16px;
+
+    }
+  }
+
 }

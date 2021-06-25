@@ -143,4 +143,16 @@
       }
     }
   }
+
+  @media screen and (max-width: 720px) {
+    .room__header__action {
+      flex-direction: column;
+    }
+
+    .question__list {
+      margin: 0 16px;
+
+    }
+  }
+
 }
