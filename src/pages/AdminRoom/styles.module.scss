@@ -58,16 +58,22 @@
     .question__list {
       padding: 50px 0;
 
-      button {
-        border: 0;
-        background: transparent;
-        cursor: pointer;
-        transition: filter 200ms;
-        
-        &:hover {
-          filter: brightness(0.5);
+      .action__container {
+        display: flex;
+        gap: 16px;
+
+        button {
+          border: 0;
+          background: transparent;
+          cursor: pointer;
+          transition: filter 200ms;
+          
+          &:hover {
+            filter: brightness(0.5);
+          }
         }
       }
+
     }
   }
 
