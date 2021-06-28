@@ -1,9 +1,6 @@
 import { useHistory, useParams } from 'react-router-dom'
-import logoImage from '../../assets/images/logo.svg'
-import { Button } from '../../components/Button'
 import { Question } from '../../components/Question'
-import { RoomCode } from '../../components/RoomCode'
-// import { useAuth } from '../../hooks/useAuth'
+import { useAuth } from '../../hooks/useAuth'
 import { useRoom } from '../../hooks/useRoom'
 import { database } from '../../services/firebase'
 
@@ -17,20 +14,31 @@ import { useState } from 'react'
 
 import { BiTrashAlt } from 'react-icons/bi'
 import { IoIosCloseCircleOutline } from "react-icons/io"
+import { TopBar } from '../../components/TopBar'
+import { useEffect } from 'react'
 
 type RoomParams = {
   id: string
 }
 
 export function AdminRoom() {
-  // const { user } = useAuth()
+  const { user } = useAuth()
   const history = useHistory()
   const params = useParams<RoomParams>()
   const roomId = params.id
-  const { questions, title } = useRoom(roomId)
+  const { questions, title, authorId } = useRoom(roomId)
 
   const [openModal, setOpenModal] = useState(false)
   const [removeQuestionId, setRemoveQuestionId] = useState('')
+
+  useEffect(() => {
+    if (authorId) {
+      if (user?.id !== authorId) {
+        history.push(`/rooms/${roomId}`)
+      }
+    }
+  }, [authorId, user?.id, roomId, history])
+
 
   async function handleEndRoom() {
     await database.ref(`rooms/${roomId}`).update({
@@ -38,12 +46,27 @@ export function AdminRoom() {
     })
 
     history.push('/')
+  }
 
+  function removeBlur() {
+    // const topBArToBlur = document.getElementById('topBar')
+    // const blurPage = document.getElementById('page')
+    // // @ts-ignore
+    // topBArToBlur.style.filter = 'blur(0)'
+    // // @ts-ignore
+    // blurPage.style.filter = 'blur(0)'
   }
 
   function handleOpenModal(questionId: string) {
     setOpenModal(!openModal)
     setRemoveQuestionId(questionId)
+
+    // const topBArToBlur = document.getElementById('topBar')
+    // const blurPage = document.getElementById('page')
+    // // @ts-ignore
+    // topBArToBlur.style.filter = 'blur(2px)'
+    // // @ts-ignore
+    // blurPage.style.filter = 'blur(2px)'
   }
 
   async function handleDeleteQuestion() {
@@ -56,27 +79,21 @@ export function AdminRoom() {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
       isAnswered: true,
     })
+
   }
 
   async function handleHighlightQuestion(questionId: string) {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-      isHighlighted: true,
+      isHighlighted: true
     })
   }
 
   return (
     <div className={styles.page__container}>
-      <header className={styles.page__header}>
-        <div className={styles.room__header__content}>
-          <img src={logoImage} alt="Logo letMeAsk" />
-          <div className={styles.room__header__action}>
-            <RoomCode code={roomId} />
-            <Button isOutlined onClick={() => setOpenModal(!openModal)}>Encerrar sala</Button>
-          </div>
-        </div>
-      </header>
 
-      <main className={styles.main__content}>
+      <TopBar />
+
+      <main className={styles.main__content} id='page'>
         <div className={styles.room__title}>
           <h1>Sala - {title}</h1>
           {questions.length > 0 && <span>{questions.length} {questions.length === 1 ? 'pergunta' : 'perguntas'}</span>}
@@ -131,6 +148,7 @@ export function AdminRoom() {
           onClose={() => {
             setOpenModal(!openModal)
             setRemoveQuestionId('')
+            removeBlur()
           }}
         >
           <div className={styles.modal__container}>
@@ -163,6 +181,7 @@ export function AdminRoom() {
                 onClick={() => {
                   setOpenModal(!openModal)
                   setRemoveQuestionId('')
+                  removeBlur()
                 }}
               >
                 Cancelar

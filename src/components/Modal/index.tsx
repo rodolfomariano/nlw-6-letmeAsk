@@ -15,6 +15,13 @@ export function Modal({ children, isOpen = false, onClose = () => { } }: ModalPr
     // @ts-ignore
     if (e.target.id === 'modal') {
       onClose()
+
+      // const topBArToBlur = document.getElementById('topBar')
+      // const blurPage = document.getElementById('page')
+      // // @ts-ignore
+      // topBArToBlur.style.filter = 'blur(0)'
+      // // @ts-ignore
+      // blurPage.style.filter = 'blur(0)'
     }
   }
 

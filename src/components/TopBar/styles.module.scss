@@ -1,0 +1,203 @@
+.page__header {
+  padding: 20px;
+  border-bottom: 1px solid #E2E2E2;
+
+  // background-color: #fff;
+  .room__header__content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > img {
+      max-height: 45px;
+      cursor: pointer;
+    }
+
+    .room__header__action {
+      
+      .room__header__menu {
+        li {
+          list-style: none;
+          position: relative;
+          
+          > img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+          }
+          
+          .room__header__menu__control {
+            z-index: 50;
+            position: absolute;
+            right: 0;
+            display: none;
+            min-width: 300px;
+            min-height: 100px;
+            background-color: #F8F8F8;
+            box-shadow: 0 0 8px rgba(124, 124, 124, 0.5);
+            padding: 30px 15px;
+            border-radius: 10px;
+
+            .menu__content {
+              flex: none;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              gap: 8px;
+
+              margin: 0 auto;
+
+              > header {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 20px;
+
+                > h3 {
+                  margin: 0;
+                  font-weight: 500;
+                  font-size: 1.3rem;
+                }
+  
+                > span {
+                  font-size: 12px;
+                  color: #403E3D;
+                }
+
+              }
+              .adminNav {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 10px 0 20px 0;
+                gap: 10px;
+                border: 1px solid #E5E5E5;
+                padding: 15px 0;
+
+                > p {
+                  font-size: 14px;
+                  color: #403E3D;
+                }
+                
+                > div {
+                  width: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-around;
+
+                  .adminNav__link {
+                    text-decoration: none;
+                    font-size: 12px;
+                    color: #835AFD;
+                  }
+                }
+              }
+
+              .closeRoom {
+                border: 0;
+                font-weight: 500;
+                font-size: 14px;
+                font-family: 'Nunito', sans-serif;
+                background: #F29F05;
+                color: #FFFFFF;
+                cursor: pointer;
+                padding: 8px 16px;
+                border-radius: 8px;
+                transition: 200ms;
+
+                &:hover {
+                  filter: brightness(0.9);
+                }
+              }
+              
+            }
+
+          }
+        }
+      }
+    }
+
+    .room__header__action {
+      display: flex;
+      gap: 16px;
+      
+      button {
+        height: 40px;
+      }
+    }
+  }
+}
+
+.modal__container {
+  background-color: #F8F8F8;
+  padding: 0 40px;
+  border-radius: 8px;
+
+  .modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding: 20px 0;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .modal__title {
+      font-family: 'Nunito', sans-serif;
+      color: #494952;
+      font-size: 24px;
+    }
+  }
+
+  .modal__content {
+    padding: 50px 0;
+    border-top: 1px solid #dbdada;
+    border-bottom: 1px solid #dbdada;
+    font-size: 14px;
+    color: #737380;
+  }
+  
+  .modal__footer {
+    width: 100%;
+    padding: 30px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    button {
+      padding: 8px 24px;
+      border-radius: 8px;
+      border: 0;
+      font-weight: 500;
+      font-size: 16px;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      color: #FFFFFF;
+      transition: filter 200ms;
+
+      &.confirm {
+        background-color: #1D9951;
+      }
+
+      &.cancel {
+        background-color: #F29F05;
+      }
+
+      &:hover {
+        filter: brightness(0.9);
+      }
+    }
+  }
+}
