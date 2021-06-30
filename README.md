@@ -2,14 +2,24 @@
 
 Project carried out during the Next Level Week (NLW) event, where the company Rocketseat offers study trails, so that the Dvs reach the next level in their careers.
 
-## :grinning: Technologies
-ReactJS, TypeScript, SCSS, Firebase
-
 <p align="center">
   <img width="90%" src="https://firebasestorage.googleapis.com/v0/b/letmeask-50610.appspot.com/o/Questions.svg?alt=media&token=2bf9ccf4-e84a-4861-ade1-ada14a8cba78">
 </p>
 
-## Getting Started
+## :satellite: Technologies
+
+<ul>
+  <li>ReactJS</li>
+  <li>TypeScript</li>
+  <li>SCSS</li>
+  <li>Firebase</li>
+</ul>
+
+## :computer: Project
+
+The question project works to answer questions in real time, simply and quickly!
+
+## :rocket: Getting Started
 
 First, install all dependencies:
 
