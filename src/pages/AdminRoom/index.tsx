@@ -8,18 +8,22 @@ import styles from './styles.module.scss'
 import deleteImg from '../../assets/images/delete.svg'
 import checkImg from '../../assets/images/check.svg'
 import answerImg from '../../assets/images/answer.svg'
+import answerImg2 from '../../assets/images/answer-2.svg'
+import questionImage from '../../assets/images/question.svg'
 
 import { Modal } from '../../components/Modal'
 import { useState } from 'react'
 
 import { BiTrashAlt } from 'react-icons/bi'
 import { IoIosCloseCircleOutline } from "react-icons/io"
+import { VscDebugStepBack } from "react-icons/vsc"
 import { TopBar } from '../../components/TopBar'
 import { useEffect } from 'react'
 
 type RoomParams = {
   id: string
 }
+
 
 export function AdminRoom() {
   const { user } = useAuth()
@@ -30,6 +34,7 @@ export function AdminRoom() {
 
   const [openModal, setOpenModal] = useState(false)
   const [removeQuestionId, setRemoveQuestionId] = useState('')
+
 
   useEffect(() => {
     if (authorId) {
@@ -82,9 +87,21 @@ export function AdminRoom() {
 
   }
 
+  async function handleRemoveCheckQuestionAsAnswered(questionId: string) {
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isAnswered: false,
+    })
+  }
+
   async function handleHighlightQuestion(questionId: string) {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-      isHighlighted: true
+      isHighlighted: true,
+    })
+  }
+
+  async function handleRemoveHighlightQuestion(questionId: string) {
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isHighlighted: false,
     })
   }
 
@@ -99,6 +116,13 @@ export function AdminRoom() {
           {questions.length > 0 && <span>{questions.length} {questions.length === 1 ? 'pergunta' : 'perguntas'}</span>}
         </div>
 
+        {questions.length === 0 && (
+          <div className={styles.notHaveQuestions}>
+            <p>Não há perguntas</p>
+            <img src={questionImage} alt="" />
+          </div>
+        )}
+
         <div className={styles.question__list}>
           {questions.map(question => {
             const { name, avatar } = question.author
@@ -112,7 +136,7 @@ export function AdminRoom() {
                 isHighlighted={question.isHighlighted}
               >
                 <div className={styles.action__container}>
-                  {!question.isAnswered && (
+                  {!question.isAnswered ? (
                     <>
                       <button
                         type="button"
@@ -120,13 +144,29 @@ export function AdminRoom() {
                       >
                         <img src={checkImg} alt="MNarcar como respondido" />
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => handleHighlightQuestion(question.id)}
-                      >
-                        <img src={answerImg} alt="Marcar como responddendo" />
-                      </button>
+                      {question.isHighlighted === false ? (
+                        <button
+                          type="button"
+                          onClick={() => handleHighlightQuestion(question.id)}
+                        >
+                          <img src={answerImg} alt="Marcar como responddendo" />
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveHighlightQuestion(question.id)}
+                        >
+                          <img src={answerImg2} alt="respondendo a pergunta" />
+                        </button>
+                      )}
                     </>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveCheckQuestionAsAnswered(question.id)}
+                    >
+                      <VscDebugStepBack size={20} color={'#835AFD'} />
+                    </button>
                   )}
                   <button
                     type="button"

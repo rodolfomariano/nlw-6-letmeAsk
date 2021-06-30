@@ -53,6 +53,28 @@
         font-weight: 500;
         font-size: 14px;
       }
+
+    }
+
+    .notHaveQuestions {
+      width: 100%;
+      padding-top: 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      > p {
+        font-family: 'Nunito', sans-serif;
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+
+      >img {
+        width: 200px;
+        opacity: .6;
+      }
     }
   
     .question__list {
@@ -151,6 +173,13 @@
 
     .question__list {
       margin: 0 16px;
+
+    }
+
+    .main__content {
+      .room__title {
+        margin: 32px 16px 24px;
+      }
 
     }
   }

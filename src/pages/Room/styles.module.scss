@@ -95,6 +95,7 @@
             border: 0;
             text-decoration: underline;
             font-weight: 500;
+            font-size: 14px;
             color: #835AFD;
             cursor: pointer;
             transition: color 200ms;
@@ -147,6 +148,13 @@
     
     .question__list {
       margin: 0 16px;
+
+    }
+
+    .main__content {
+      .room__title {
+        margin: 32px 16px 24px;
+      }
 
     }
   }

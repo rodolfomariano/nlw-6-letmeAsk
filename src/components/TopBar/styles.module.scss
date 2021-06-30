@@ -18,6 +18,7 @@
     .room__header__action {
       
       .room__header__menu {
+        z-index: 1000;
         li {
           list-style: none;
           position: relative;
@@ -30,7 +31,6 @@
           }
           
           .room__header__menu__control {
-            z-index: 50;
             position: absolute;
             right: 0;
             display: none;
@@ -63,11 +63,29 @@
                   margin: 0;
                   font-weight: 500;
                   font-size: 1.3rem;
+
+                  &.userNotFound {
+                    font-size: 14px;
+                  }
                 }
   
                 > span {
                   font-size: 12px;
                   color: #403E3D;
+                }
+
+                > button {
+                  font-size: 14px;
+                  font-family: 'Nunito', sans-serif;
+                  cursor: pointer;
+                  border: none;
+                  background: transparent;
+                  color: #835AFD;
+                  transition: filter 200ms;
+
+                  &:hover {
+                    filter: brightness(0.5);
+                  }
                 }
 
               }
@@ -116,6 +134,12 @@
                   filter: brightness(0.9);
                 }
               }
+
+              .exit__room {
+                text-decoration: none;
+                color: red;
+                margin-top: 10px;
+              }
               
             }
 
@@ -133,6 +157,18 @@
       }
     }
   }
+
+  .menu__background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #403e3d67;
+    z-index: 900;
+
+  }
+
 }
 
 .modal__container {

@@ -43,6 +43,7 @@
   }
 
   .main__content {
+    position: relative;
     width: 100%;
     max-width: 320px;
 
@@ -71,6 +72,72 @@
       input, button {
         width: 100%;
       }
+    }
+
+    .have__room {
+      margin-top: 20px;
+      .userRomms__container {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        background-color: #835AFD;
+        height: 100%;
+        padding: 20px 10px;
+        gap: 30px;
+        border-radius: 8px;
+        clip-path: circle(4% at 85% 55%);
+        transition: 700ms;
+        overflow-y: scroll;
+  
+        display: flex;
+        flex-direction: column;
+
+        > h2 {
+          color: #F8F8F8;
+          font-weight: 700;
+          font-family: 'Nunito', sans-serif;
+        }
+  
+        > span {
+          color: #F8F8F8;
+          font-weight: 600;
+          font-size: 14px;
+  
+          > button {
+            padding: 8px 16px;
+            font-size: 12px;
+            color: #ffffff;
+            font-family: 'Nunito', sans-serif;
+            background-color: #37B03F;
+            border: none;
+            border-radius: 8px;
+            margin-top: 5px;
+            cursor: pointer;
+            transition: filter 200ms ease-in-out;
+  
+            &:hover {
+              filter: brightness(0.9);
+            }
+          }
+  
+        }
+
+        .rooms__info {
+          position: absolute;
+          right: 22px;
+          top: 52%;
+          transition: 700ms;
+        }
+
+        &:hover {
+          clip-path: circle(100%);
+
+          .rooms__info {
+            opacity: 0;
+          }
+        }
+      }
+
     }
   }
 

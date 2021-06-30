@@ -57,7 +57,7 @@ export function Room() {
     if (!user) {
       await signInWithGoogle()
     }
-    console.log(user)
+
   }
 
   async function handleLikeQuestion(questionId: string, likeId: string | undefined) {

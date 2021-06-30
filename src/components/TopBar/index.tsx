@@ -1,5 +1,5 @@
 import { useHistory, useParams, Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { database } from '../../services/firebase'
 
 import { RoomCode } from '../RoomCode'
@@ -9,6 +9,7 @@ import { Modal } from '../Modal'
 import styles from './styles.module.scss'
 
 import logoImage from '../../assets/images/logo.svg'
+import userImage from '../../assets/images/user.svg'
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import { useAuth } from '../../hooks/useAuth'
 import { useRoom } from '../../hooks/useRoom'
@@ -18,7 +19,7 @@ type RoomParams = {
 }
 
 export function TopBar() {
-  const { user } = useAuth()
+  const { user, signInWithGoogle } = useAuth()
   const [openModal, setOpenModal] = useState(false)
   const history = useHistory()
 
@@ -45,14 +46,15 @@ export function TopBar() {
 
   }
 
-  function removeBlur() {
-    // const topBArToBlur = document.getElementById('topBar')
-    // const blurPage = document.getElementById('page')
-    // // @ts-ignore
-    // topBArToBlur.style.filter = 'blur(0)'
-    // // @ts-ignore
-    // blurPage.style.filter = 'blur(0)'
+  async function handleSignInWithGoogle(event: FormEvent) {
+    event.preventDefault()
+
+    if (!user) {
+      await signInWithGoogle()
+    }
+
   }
+
 
   function handleOpenModal() {
     setOpenModal(!openModal)
@@ -92,13 +94,25 @@ export function TopBar() {
           <div className={styles.room__header__action}>
             <ul className={styles.room__header__menu}>
               <li>
-                <img src={user?.avatar} alt="Foto do usurio" onClick={handleOpenMenu} />
+                {user ? (
+                  <img src={user?.avatar} alt="Foto do usurio" onClick={handleOpenMenu} />
+                ) : (
+                  <img src={userImage} alt="Usuario não autenticado" onClick={handleOpenMenu} />
+                )}
+
                 <div id='menu' className={styles.room__header__menu__control}>
                   <div className={styles.menu__content}>
-                    <header>
-                      <h3>{user?.name}</h3>
-                      <span>{user?.email}</span>
-                    </header>
+                    {user ? (
+                      <header>
+                        <h3>{user?.name}</h3>
+                        <span>{user?.email}</span>
+                      </header>
+                    ) : (
+                      <header>
+                        <h3 className={styles.userNotFound}>Usuario não autenticado</h3>
+                        <button onClick={handleSignInWithGoogle}>Faça seu login</button>
+                      </header>
+                    )}
                     <RoomCode code={roomId} />
 
                     {isAuthor === true ? (
@@ -123,13 +137,16 @@ export function TopBar() {
                         <Button isOutlined onClick={handleOpenModal} className={styles.closeRoom}>Encerrar sala</Button>
                       </>
                     ) : (null)}
+                    <Link to='/' className={styles.exit__room}>Sair</Link>
                   </div>
-
                 </div>
               </li>
             </ul>
           </div>
         </div>
+
+        {menuIsVisible === true ? <div className={styles.menu__background} onClick={handleOpenMenu}></div> : null}
+
       </header>
 
       {openModal === true ? (
@@ -164,7 +181,6 @@ export function TopBar() {
                 type="button"
                 onClick={() => {
                   setOpenModal(!openModal)
-                  removeBlur()
                 }}
               >
                 Cancelar
