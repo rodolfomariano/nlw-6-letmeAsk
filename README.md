@@ -2,7 +2,7 @@
 
 Project carried out during the Next Level Week (NLW) event, where the company Rocketseat offers study trails, so that the Dvs reach the next level in their careers.
 
-## &#129409 Technologies
+## :grinning: Technologies
 ReactJS, TypeScript, SCSS, Firebase
 
 <p align="center">
